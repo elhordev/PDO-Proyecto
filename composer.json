@@ -1,0 +1,16 @@
+{
+    "name": "elhor/pdo-proyecto",
+    "autoload": {
+        "psr-4": {
+            "Elhor\\PdoProyecto\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "diego"
+        }
+    ],
+    "require": {
+        "ramsey/uuid": "^4.9"
+    }
+}
