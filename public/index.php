@@ -15,12 +15,32 @@ use services\ProductosService;
 $config = Config::getInstance();
 $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);
+
+
+
+
 $productosList = $productoService->findAll();
+
 ?>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Listado de Productos</h1>
-
+    <div class="d-flex justify-content-center mb-4">
+        <div class="input-group" style="max-width: 500px;">
+            <input 
+                type="text" 
+                class="form-control form-control-lg rounded-start-pill" 
+                placeholder="🔍 Introduce nombre o marca..."
+                aria-label="Buscar producto"
+            >
+            <button 
+                class="btn btn-primary rounded-end-pill px-4" 
+                type="button"
+            >
+                Buscar
+            </button>
+        </div>
+    </div>
     <table class="table table-dark table-striped table-hover align-middle text-center">
         <thead class="table-secondary text-dark">
             <tr>
@@ -43,13 +63,19 @@ $productosList = $productoService->findAll();
                         <td>' . htmlspecialchars($producto->precio) . '</td>
                         <td>' . htmlspecialchars($producto->stock) . '</td>
                         <td>' . 
-                        '<img src='.$producto->imagen.' alt='.$producto->descripcion.'/>' . '</td>
+                        '<img src='.$producto->imagen.' alt='.$producto->descripcion.'>' . '</td>
                         <td class="text-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                                <button type="button" class="btn btn-outline-info btn-sm">Detalles</button>
-                                <button type="button" class="btn btn-outline-warning btn-sm">Editar</button>
+                            <form action="../app/update.php" method="get">    
+                            <input name="id" value="'.$producto->id.'" style="display:none"/>
+                            <input type="submit" value="Editar"class="btn btn-outline-warning btn-sm"></form>
+                                <form action="../app/details.php" method="get">    
+                            <input name="id" value="'.$producto->id.'" style="display:none"/>
+                            <input type="submit" value="Detalles"class="btn btn-outline-info btn-sm"></form>
                                 <button type="button" class="btn btn-outline-secondary btn-sm">Imagen</button>
-                                <button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button>
+                            <form action="../app/delete.php" method="get">    
+                            <input name="id" value="'.$producto->id.'" style="display:none"/>
+                            <input type="submit" value="Eliminar"class="btn btn-outline-danger btn-sm"></form>
                             </div>
                         </td>
                       </tr>';

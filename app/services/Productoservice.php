@@ -93,7 +93,43 @@ class ProductosService
 
     public function findByCategory($categoria) {}
 
-    public function updateProduct($id) {}
+    public function updateProduct(Producto $producto) {
+
+        try{
+            echo $producto->id;
+            $stmt = $this->pdo->prepare("UPDATE productos SET 
+                descripcion = :descripcion,
+                imagen = :imagen,
+                marca = :marca,
+                modelo = :modelo,
+                precio = :precio,
+                stock = :stock,
+                updated_at = :updated_at,
+                categoria_id = :categoria_id,
+                is_deleted = :is_deleted
+                WHERE id = :id;");
+
+            $data = array(
+                'id' => $producto->id,
+                'descripcion' => $producto->descripcion,
+                'imagen' => $producto->imagen,
+                'marca' => $producto->marca,
+                'modelo' => $producto->modelo,
+                'precio' => $producto->precio,
+                'stock' => $producto->stock,
+                'updated_at' => date("Y-m-d H:i:s", time()),
+                'categoria_id' => $producto->categoriaId,
+                    'is_deleted' => $producto->isDeleted == true ? "true": "false"
+            );
+
+            $stmt->execute($data);
+            echo "Producto modificado con éxito.";
+
+        }catch(PDOException $e){
+                echo $e->getMessage();
+            }
+
+    }
 
     public function findAll()
     {
@@ -129,17 +165,14 @@ class ProductosService
         return $results;
     }
 
-
-    public function findById($id)
+    public function findAviable()
     {
-
-
         $results = [];
-
+        
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM productos WHERE id = :id');
+            $stmt = $this->pdo->prepare('SELECT * FROM productos WHERE is_deleted = false');
 
-            $res = $stmt->execute(array('id' => $id));
+            $res = $stmt->execute();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
@@ -159,10 +192,44 @@ class ProductosService
                 );
                 $results[] = $res;
             }
+            
         } catch (PDOException $err) {
             echo "Error: " . $err;
         }
         return $results;
+    }
+
+    public function findById($id)
+    {
+
+
+        try {
+            $stmt = $this->pdo->prepare('SELECT * FROM productos WHERE id = :id');
+            
+            $res = $stmt->execute(array('id' => $id));
+            
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                $res = Producto::__constructAllAtt(
+                    $row['id'],
+                    $row['descripcion'],
+                    $row['imagen'],
+                    $row['marca'],
+                    $row['modelo'],
+                    $row['precio'],
+                    $row['stock'],
+                    $row['updated_at'],
+                    $row['categoria_id'],
+                    $row['is_deleted'],
+                    $row['created_at'],
+                    $row['uuid']
+                );
+                
+            }
+        } catch (PDOException $err) {
+            echo "Error: " . $err;
+        }
+        return $res;
     }
 
 

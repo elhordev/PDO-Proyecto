@@ -2,13 +2,19 @@
 require_once __DIR__ . '\..\app\services\Productoservice.php';
 require_once __DIR__ . '\..\app\config\Config.php';
 require_once __DIR__ . '\..\app\services\Categoriasservice.php';
+require_once __DIR__ . '\..\app\models\Producto.php';
+require __DIR__ . '\..\vendor\autoload.php';
 
-use models\Categoria;
 use services\CategoriasService;
 use config\Config;
+use services\ProductosService;
+use models\Producto;
+
 
 $config = Config::getInstance();
 $categoriaService = new CategoriasService($config->db);
+$productoService = new ProductosService($config->db);
+
 include __DIR__ . '\..\app\header.php';
 ?>
 
@@ -53,7 +59,7 @@ include __DIR__ . '\..\app\header.php';
         <?php
         $categorias = $categoriaService->findAll();
         foreach($categorias as $categoria){
-            echo '<option value="' . $categoria->id . '">' . htmlspecialchars($categoria->nombre) . '</option>';
+            echo '<option value="' . $categoria->nombre . '">' . htmlspecialchars($categoria->nombre) . '</option>';
         }
         ?>
       </select>
@@ -66,5 +72,29 @@ include __DIR__ . '\..\app\header.php';
 </div>
 
 <?php
+if (isset($_POST['marca'])){
+  $marca = $_POST['marca'];
+  $modelo = $_POST['modelo'];
+  $descripcion = $_POST['descripcion'];
+  $precio = $_POST['precio'];
+  $imagen = $_POST['imagen'];
+  $stock = $_POST['stock'];
+  $categoria = $_POST['categoria'];
+
+  $id_categoria = $categoriaService->findByName($categoria)->id;
+  
+  $nuevoProducto = new Producto(
+    $marca,$modelo,$precio,$descripcion,$imagen,$stock,$id_categoria
+  );
+
+  $productoService->create($nuevoProducto);
+
+  echo '<div class="text-center mb-4"><br><h2>Producto creado con éxito!</h2></div>';
+
+
+
+}
+
+
 include __DIR__ . '\..\app\footer.php';
 ?>

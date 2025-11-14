@@ -1,8 +1,8 @@
 <?php
 // header_elhorshop.php (versión con Bootstrap)
-if (session_status() !== PHP_SESSION_ACTIVE) {
-session_start();
-}
+//if (session_status() !== PHP_SESSION_ACTIVE) {
+//session_start();
+//}
 ?>
 
 <!doctype html>
