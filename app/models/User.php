@@ -15,8 +15,9 @@ class User{
     private $roles;
 
 
-    public function __construct($username, $password, $nombre, $apellidos, $email,$roles)
+    public function __construct($id, $username, $password, $nombre, $apellidos, $email,$roles)
     {
+        $this->id = $id;
         $this->username = $username;
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->nombre = $nombre;

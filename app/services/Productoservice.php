@@ -93,10 +93,11 @@ class ProductosService
 
     public function findByCategory($categoria) {}
 
-    public function updateProduct(Producto $producto) {
+    public function updateProduct(Producto $producto)
+    {
 
-        try{
-            echo $producto->id;
+        try {
+
             $stmt = $this->pdo->prepare("UPDATE productos SET 
                 descripcion = :descripcion,
                 imagen = :imagen,
@@ -119,22 +120,20 @@ class ProductosService
                 'stock' => $producto->stock,
                 'updated_at' => date("Y-m-d H:i:s", time()),
                 'categoria_id' => $producto->categoriaId,
-                    'is_deleted' => $producto->isDeleted == true ? "true": "false"
+                'is_deleted' => $producto->isDeleted == true ? "true" : "false"
             );
 
             $stmt->execute($data);
             echo "Producto modificado con éxito.";
-
-        }catch(PDOException $e){
-                echo $e->getMessage();
-            }
-
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 
     public function findAll()
     {
         $results = [];
-        
+
         try {
             $stmt = $this->pdo->prepare('SELECT * FROM productos');
 
@@ -158,7 +157,6 @@ class ProductosService
                 );
                 $results[] = $res;
             }
-            
         } catch (PDOException $err) {
             echo "Error: " . $err;
         }
@@ -168,7 +166,7 @@ class ProductosService
     public function findAviable()
     {
         $results = [];
-        
+
         try {
             $stmt = $this->pdo->prepare('SELECT * FROM productos WHERE is_deleted = false');
 
@@ -192,7 +190,6 @@ class ProductosService
                 );
                 $results[] = $res;
             }
-            
         } catch (PDOException $err) {
             echo "Error: " . $err;
         }
@@ -205,9 +202,9 @@ class ProductosService
 
         try {
             $stmt = $this->pdo->prepare('SELECT * FROM productos WHERE id = :id');
-            
+
             $res = $stmt->execute(array('id' => $id));
-            
+
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
                 $res = Producto::__constructAllAtt(
@@ -224,7 +221,6 @@ class ProductosService
                     $row['created_at'],
                     $row['uuid']
                 );
-                
             }
         } catch (PDOException $err) {
             echo "Error: " . $err;
@@ -270,7 +266,7 @@ class ProductosService
         try {
             $stmt = $this->pdo->prepare('DELETE FROM productos WHERE id = :id');
             $stmt->execute(array(':id' => $idProducto));
-            echo "Eliminado con éxito.";
+            
         } catch (PDOException $err) {
             echo "Error: " . $err;
         }

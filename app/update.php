@@ -37,13 +37,13 @@ if (isset($_GET['id'])) {
             <input type="text" name="descripcion" class="form-control mb-3" value="'.$producto->descripcion.'">
 
             <label class="form-label">Precio</label>
-            <input type="number" name="precio" class="form-control mb-3" value="'.$producto->precio.'">
+            <input type="number" name="precio" step="0.01" class="form-control mb-3" value="'.$producto->precio.'">
 
             <label class="form-label">Imagen</label>
             <input type="text" name="imagen" class="form-control mb-3" value="'.$producto->imagen.'" readonly>
 
             <label class="form-label">Stock</label>
-            <input type="text" name="stock" class="form-control mb-3" value="'.$producto->stock.'">
+            <input type="number" name="stock" class="form-control mb-3" value="'.$producto->stock.'">
 
             <label class="form-label">Categoria</label>
             <select id="categoria" name="categoria" class="form-select mb-3" required>';
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
         $producto->imagen = $imagen;
         $producto->stock = $stock;
         $producto->categoriaId = $id_categoria;
-        echo $producto->id;
+            
 
         $productoService->updateProduct($producto);
     }

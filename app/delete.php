@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
 
 
     $producto = $productoService->deleteByID($id);
-
+    header('location:../public/index.php');
 
 
 
