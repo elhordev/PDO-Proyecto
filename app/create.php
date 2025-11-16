@@ -46,7 +46,7 @@ include __DIR__ . '\..\app\header.php';
 
     <div class="mb-3">
       <label for="imagen" class="form-label">Imagen (URL)</label>
-      <input type="text" class="form-control" id="imagen" name="imagen">
+      <input type="text" class="form-control" id="imagen" disabled="true" name="imagen">
     </div>
 
     <div class="mb-3">
@@ -78,7 +78,7 @@ if (isset($_POST['marca'])){
   $modelo = $_POST['modelo'];
   $descripcion = $_POST['descripcion'];
   $precio = $_POST['precio'];
-  $imagen = $_POST['imagen'];
+  $imagen = '';
   $stock = $_POST['stock'];
   $categoria = $_POST['categoria'];
 

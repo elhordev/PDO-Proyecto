@@ -4,15 +4,16 @@ use services\SessionService;
 
 $sessionService = SessionService::getInstance();
 
-echo $_COOKIE['usuario'];
-echo $_COOKIE['rol'];
-
 if(isset($_COOKIE['usuario'])){
     $userlogged = 'd-inline';
     $nouser = 'd-none';
+    $nousertext = 'Cerrar sesión';
+    $url_button = '../app/logout.php';
 }else{
     $userlogged = 'd-none';
     $nouser = 'd-inline';
+    $nousertext = 'Iniciar sesión';
+    $url_button = '../app/login.php';
 }
 
 $rol = "Invitado";
@@ -52,29 +53,24 @@ if(isset($_COOKIE['rol'])){
 <div class="collapse navbar-collapse" id="navbarNav">
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 <li class="nav-item">
-<a class="nav-link" href="/productos.php">Productos</a>
+<a class="nav-link" href="/PDO-Proyecto/public">Productos</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" href="../app/create.php">Crear producto</a>
 </li>
-
-<?php 
-    echo("<li class='$nouser'><a class='link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='login.php'>Iniciar sesión</a></li>
-    <li class='$userlogged'><a class='link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='logout.php'>Cerrar sesión</a></li>");             
-
-?>
 </ul>
 
 
 
 <div class="d-flex align-items-center gap-2">
-<?php if (!empty($_SESSION['user'])): ?>
-<span class="text-white-50 small">Hola, <?= htmlspecialchars($_SESSION['user']) ?></span>
+<?php if (!empty($_COOKIE['usuario'])): ?>
+<span class="navbar-brand fw-bold">Hola, <?= htmlspecialchars($_COOKIE['usuario']) ?></span>
 <?php endif; ?>
 
 
-<form action="/logout.php" method="post" class="m-0">
-<button type="submit" name="logout" class="btn btn-light btn-sm">Cerrar sesión</button>
+<form action="<?php echo $url_button;?>" method="post" class="m-0">
+    <?php echo $rol . " - ";?>
+<button type="submit" name="logout" class="btn btn-light btn-sm"><?php echo $nousertext;?></button>
 </form>
 </div>
 </div>

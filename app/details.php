@@ -9,14 +9,14 @@ require __DIR__ . '\..\vendor\autoload.php';
 use services\CategoriasService;
 use config\Config;
 use services\ProductosService;
-use models\Producto;
+
 
 $config = Config::getInstance();
 $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);
 include __DIR__ . '\..\app\header.php';
 
-echo '<div class="container mt-5">';
+
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
             Imagen
             </td>
             <td>
-            <img src='.$producto->imagen.' alt='.$producto->descripcion.'>'. '
+            <img src='.$producto->imagen.' "class = "img-fluid" alt='.$producto->descripcion.'>'. '
             </td>
         </tr>
         <tr>

@@ -21,7 +21,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])){
     $userPassword = $_POST['pass'];
 
     $user = $userService->authenticate($userName, $userPassword);
-    print_r($user);
+    //todo se acuerda juan
     $sessionService->login($user);
     header('location:../public/index.php');
 

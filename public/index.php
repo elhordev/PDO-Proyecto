@@ -49,12 +49,13 @@ $productosList = $productoService->findAll();
                 <th>Modelo</th>
                 <th>Precio (€)</th>
                 <th>Stock</th>
-                <th>Imagen</th>
+                <th style="width: 100px;">Imagen</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php 
+            
             foreach($productosList as $producto){
                 echo '<tr>
                         <td>' . htmlspecialchars($producto->id) . '</td>
@@ -62,20 +63,21 @@ $productosList = $productoService->findAll();
                         <td>' . htmlspecialchars($producto->modelo) . '</td>
                         <td>' . htmlspecialchars($producto->precio) . '</td>
                         <td>' . htmlspecialchars($producto->stock) . '</td>
-                        <td>' . 
-                        '<img src='.$producto->imagen.' alt='.$producto->descripcion.'>' . '</td>
+                        <td class="text-center align-middle">' . '<img src='.$producto->imagen.' class="img-fluid" style="max-width: 200px; max-height: 200px;" alt='.$producto->descripcion.'>' . '</td>
                         <td class="text-center">
                             <div class="btn-group" role="group" aria-label="Acciones">
-                            <form action="../app/update.php" method="get">    
-                            <input name="id" value="'.$producto->id.'" style="display:none"/>
-                            <input type="submit" value="Editar"class="btn btn-outline-warning btn-sm"></form>
+                                <form action="../app/update.php" method="get">    
+                                    <input name="id" value="'.$producto->id.'" style="display:none"/>
+                                    <input type="submit" value="Editar"class="btn btn-outline-warning btn-sm"></form>
                                 <form action="../app/details.php" method="get">    
-                            <input name="id" value="'.$producto->id.'" style="display:none"/>
-                            <input type="submit" value="Detalles"class="btn btn-outline-info btn-sm"></form>
-                                <button type="button" class="btn btn-outline-secondary btn-sm">Imagen</button>
-                            <form action="../app/delete.php" method="get">    
-                            <input name="id" value="'.$producto->id.'" style="display:none"/>
-                            <input type="submit" value="Eliminar"class="btn btn-outline-danger btn-sm"></form>
+                                    <input name="id" value="'.$producto->id.'" style="display:none"/>
+                                    <input type="submit" value="Detalles"class="btn btn-outline-info btn-sm"></form>
+                                <form action="../app/update-image.php" method="get">    
+                                    <input name="id" value="'.$producto->id.'" style="display:none"/>
+                                    <input type="submit" value="Imagen"class="btn btn-outline-success btn-sm"></form>
+                                <form action="../app/delete.php" method="get">    
+                                    <input name="id" value="'.$producto->id.'" style="display:none"/>
+                                    <input type="submit" value="Eliminar"class="btn btn-outline-danger btn-sm"></form>
                             </div>
                         </td>
                       </tr>';

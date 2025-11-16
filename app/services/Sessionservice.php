@@ -57,8 +57,8 @@ class SessionService
     }
 
     public function logout(){
-            setcookie("usuario", $_SESSION['usuario'],time() -3600);
-            setcookie("rol",$_SESSION['rol'], time() -3600);
+            setcookie("usuario", $_SESSION['usuario'],time() -3600, "/");
+            setcookie("rol",$_SESSION['rol'], time() -3600, "/");
             session_destroy();
     }
 

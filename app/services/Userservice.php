@@ -22,13 +22,14 @@ class UsersService{
     public function authenticate($username, $password){
 
         try{
-        $user = $this->findUserByName($username);
+            $user = $this->findUserByName($username);
 
-        $passBDD = $user->password;
+            $passBDD = $user->password;
 
-        if(password_verify($password, $passBDD)){
-            return $user;}
-            
+            if(password_verify($password, $passBDD)){
+                return $user;}
+            else{
+                return null;}
 
         }catch (PDOException $err) {
             echo "Error: " . $err;

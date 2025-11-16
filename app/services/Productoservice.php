@@ -91,7 +91,11 @@ class ProductosService
     }
 
 
-    public function findByCategory($categoria) {}
+    public function findByCategory($categoria) {
+
+
+
+    }
 
     public function updateProduct(Producto $producto)
     {
@@ -205,9 +209,9 @@ class ProductosService
 
             $res = $stmt->execute(array('id' => $id));
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-                $res = Producto::__constructAllAtt(
+                return Producto::__constructAllAtt(
                     $row['id'],
                     $row['descripcion'],
                     $row['imagen'],
@@ -221,11 +225,12 @@ class ProductosService
                     $row['created_at'],
                     $row['uuid']
                 );
-            }
+            }else {return null;}
         } catch (PDOException $err) {
             echo "Error: " . $err;
+            return null;
         }
-        return $res;
+        
     }
 
 
