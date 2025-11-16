@@ -11,6 +11,7 @@ use services\ProductosService;
 use models\Producto;
 
 
+
 $config = Config::getInstance();
 $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);

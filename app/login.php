@@ -12,17 +12,18 @@ use models\User;
 
 $config = Config::getInstance();
 $userService = new UsersService($config->db);
-$sessionService = new SessionService::getInstance();
+$sessionService = SessionService::getInstance();
 
 
-if (isset($_POST['user']) && isset($_POST['password'])){
+if (isset($_POST['user']) && isset($_POST['pass'])){
     
     $userName = $_POST['user'];
-    $userPassword = $_POST['password'];
+    $userPassword = $_POST['pass'];
 
     $user = $userService->authenticate($userName, $userPassword);
+    print_r($user);
     $sessionService->login($user);
-
+    header('location:../public/index.php');
 
 
 }

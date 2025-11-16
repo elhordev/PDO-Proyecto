@@ -19,7 +19,7 @@ class User{
     {
         $this->id = $id;
         $this->username = $username;
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
+        $this->password = $password;
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
         $this->email = $email;

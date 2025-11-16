@@ -1,8 +1,28 @@
 <?php
-// header_elhorshop.php (versión con Bootstrap)
-//if (session_status() !== PHP_SESSION_ACTIVE) {
-//session_start();
-//}
+require_once dirname(__FILE__) . "\services\Sessionservice.php";
+use services\SessionService;
+
+$sessionService = SessionService::getInstance();
+
+echo $_COOKIE['usuario'];
+echo $_COOKIE['rol'];
+
+if(isset($_COOKIE['usuario'])){
+    $userlogged = 'd-inline';
+    $nouser = 'd-none';
+}else{
+    $userlogged = 'd-none';
+    $nouser = 'd-inline';
+}
+
+$rol = "Invitado";
+
+if(isset($_COOKIE['rol'])){
+    $rol = $_COOKIE['rol'];
+}
+
+
+
 ?>
 
 <!doctype html>
@@ -37,10 +57,16 @@
 <li class="nav-item">
 <a class="nav-link" href="../app/create.php">Crear producto</a>
 </li>
+
+<?php 
+    echo("<li class='$nouser'><a class='link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='login.php'>Iniciar sesión</a></li>
+    <li class='$userlogged'><a class='link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover' href='logout.php'>Cerrar sesión</a></li>");             
+
+?>
 </ul>
 
 
-<!-- Usuario + botón cerrar sesión -->
+
 <div class="d-flex align-items-center gap-2">
 <?php if (!empty($_SESSION['user'])): ?>
 <span class="text-white-50 small">Hola, <?= htmlspecialchars($_SESSION['user']) ?></span>
@@ -56,7 +82,7 @@
 </nav>
 
 
-<!-- BOOTSTRAP JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

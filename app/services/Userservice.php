@@ -26,8 +26,9 @@ class UsersService{
 
         $passBDD = $user->password;
 
-        if(password_verify($password, $passBDD)){}
-            return $user;
+        if(password_verify($password, $passBDD)){
+            return $user;}
+            
 
         }catch (PDOException $err) {
             echo "Error: " . $err;
@@ -71,6 +72,7 @@ class UsersService{
              }
             $user->roles = $roles;
 
+            
             return $user;
             
         }else{echo 'Usuario no encontrado en la Base de datos';}
