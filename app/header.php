@@ -34,18 +34,18 @@ if(isset($_COOKIE['rol'])){
 <title>Elhorshop</title>
 
 
-<!-- BOOTSTRAP -->
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../src/favicon/mantenimiento.png" rel="icon" type="image/png">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
 <div class="container-fluid">
-<!-- Título / Marca -->
+
 <a class="navbar-brand fw-bold" href="\..\PDO-Proyecto\public">Elhorshop</a>
 
 
-<!-- Botón responsive -->
+
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>

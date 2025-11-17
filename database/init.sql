@@ -77,10 +77,10 @@ CREATE TABLE `usuarios` (
 -- Insertar usuarios (con hashes tal cual)
 INSERT INTO `usuarios` (`id`, `username`, `password`, `email`, `nombre`, `apellidos`, `is_deleted`, `created_at`, `updated_at`)
 VALUES
-(1, 'admin', '$2a$10$vPaqZvZkz6jhb7U7k/V/v.5vprfNdOnh4sxi/qpPRkYTzPmFlI9p2', 'admin@prueba.net', 'Admin', 'Admin Admin', 0, NOW(), NOW()),
-(2, 'user', '$2a$12$RUq2ScW1Kiizu5K4gKoK4OTz80.DWaruhdyfi2lZCB.KeuXTBh0S.', 'user@prueba.net', 'User', 'User User', 0, NOW(), NOW()),
-(3, 'test', '$2a$10$Pd1yyq2NowcsDf4Cpf/ZXObYFkcycswqHAqBndE1wWJvYwRxlb.Pu', 'test@prueba.net', 'Test', 'Test Test', 0, NOW(), NOW()),
-(4, 'otro', '$2a$12$3Q4.UZbvBMBEvIwwjGEjae/zrIr6S50NusUlBcCNmBd2382eyU0bS', 'otro@prueba.net', 'Otro', 'Otro Otro', 0, NOW(), NOW());
+(1, 'admin', '$10$5TqinSEoqa2zzXMBpqtcLeo2DOQIZQTCQNM9Bvf4W9hZL.i8LMsIC', 'admin@prueba.net', 'Admin', 'Admin Admin', 0, NOW(), NOW()),
+(2, 'user', '$2a$12$1MIYfVQXiVW2kuchs2h3w.6ULVvb7l/CYUL3fV..cO7Nl2ddgkXs2', 'user@prueba.net', 'User', 'User User', 0, NOW(), NOW()),
+(3, 'test', '$2a$12$IfEFo2U/YIOaFJD5MJ75COcXcI12sIf9DhR/CuS8WmQuY/zDvmPGa', 'test@prueba.net', 'Test', 'Test Test', 0, NOW(), NOW()),
+(4, 'otro', '$2a$12$SeX1vL9qPffVTw30/nDjzOqkeFctJG3j7h8cYnq9u0MTyKgDX0Ga.', 'otro@prueba.net', 'Otro', 'Otro Otro', 0, NOW(), NOW());
 
 
 -- Crear tabla user_roles
