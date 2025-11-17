@@ -53,6 +53,7 @@ class SessionService
             
             setcookie("rol",$_SESSION['rol'], time() + $this->expireAfterseconds, "/");
             echo $_SESSION['rol'];
+            
 
     }
 

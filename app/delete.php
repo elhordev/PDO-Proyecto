@@ -14,15 +14,19 @@ $config = Config::getInstance();
 $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
+if(!isset($_COOKIE['rol']) || $_COOKIE['rol'] != 'ADMIN'){
+    header('location:../public/index.php?rol=0');
+}else{
+
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
 
 
-    $producto = $productoService->deleteByID($id);
-    header('location:../public/index.php');
+        $producto = $productoService->deleteByID($id);
+        header('location:../public/index.php?deleted=1');
 
 
 
 }
-
+}
 ?>

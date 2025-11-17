@@ -51,7 +51,7 @@ class ProductosService
             }
         } catch (PDOException $err) {
             echo "Error: " . $err->getMessage();
-            echo "Patata";
+            echo "No puido no puidooo";
         }
         return $results;
     }
@@ -91,11 +91,53 @@ class ProductosService
     }
 
 
-    public function findByCategory($categoria) {
+    public function findAllWithCategoryName($string) {
+        $results = [];
+        echo 'Llego aqui';
+        try {
+            $stmt = $this->pdo->prepare(
+                'SELECT productos.id, productos.uuid, productos.precio, productos.stock, productos.descripcion, productos.imagen, productos.marca, productos.modelo, productos.is_deleted, productos.categoria_id, productos.created_at, productos.updated_at, categorias.nombre
+                FROM productos
+                JOIN categorias 
+                ON productos.categoria_id = categorias.id
+                WHERE categorias.nombre 
+                LIKE :nombrecat 
+                OR productos.modelo 
+                LIKE :modelo;');
+
+            $stmt->execute(array(
+                'nombrecat' => $string,
+                'modelo' => $string ));
 
 
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
+                $res = Producto::__constructAllAtt(
+                    $row['id'],
+                    $row['descripcion'],
+                    $row['imagen'],
+                    $row['marca'],
+                    $row['modelo'],
+                    $row['precio'],
+                    $row['stock'],
+                    $row['updated_at'],
+                    $row['categoria_id'],
+                    $row['is_deleted'],
+                    $row['created_at'],
+                    $row['uuid']
+                );
+                $results[] = $res;
+            }
+        } catch (PDOException $err) {
+            echo "Error: " . $err->getMessage();
+            
+        }
+        return $results;
     }
+        
+
+
+    
 
     public function updateProduct(Producto $producto)
     {

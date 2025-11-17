@@ -17,7 +17,6 @@ $productoService = new ProductosService($config->db);
 include __DIR__ . '\..\app\header.php';
 
 
-
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 

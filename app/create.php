@@ -17,6 +17,12 @@ $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);
 
 include __DIR__ . '\..\app\header.php';
+
+if(!isset($_COOKIE['rol']) || $_COOKIE['rol'] != 'ADMIN'){
+    header('location:../public/index.php?rol=0');
+}
+
+
 ?>
 
 <div class="container mt-5">

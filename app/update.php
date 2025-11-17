@@ -18,6 +18,10 @@ include __DIR__ . '\..\app\header.php';
 echo '<div class="container mt-5">';
 echo '<h1 class="mb-4">Edición del producto</h1>';
 
+if(!isset($_COOKIE['rol']) || $_COOKIE['rol'] != 'ADMIN'){
+    header('location:../public/index.php?rol=0');
+}
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $producto = $productoService->findById($id);

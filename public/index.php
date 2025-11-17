@@ -4,7 +4,7 @@ require_once __DIR__ . '\..\app\models\Categoria.php';
 require_once __DIR__ . '\..\app\services\Categoriasservice.php';
 require_once __DIR__ . '\..\app\services\Productoservice.php';
 require __DIR__ . '\..\vendor\autoload.php';
-include __DIR__ . '\..\app\header.php';
+
 
 use config\Config;
 use models\Categoria;
@@ -16,37 +16,53 @@ $config = Config::getInstance();
 $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);
 
+include __DIR__ . '\..\app\header.php';
 
+$productosList = '';
 
+if (isset($_GET['deleted']) && $_GET['deleted'] == 1){
+    echo '<div class="alert alert-success text-center" role="alert">
+    Producto eliminado correctamente.
+    </div>';
+}
+if (isset($_GET['rol']) && $_GET['rol'] == 0 ){
+echo '<div class="alert alert-danger text-center" role="alert">
+    No tienes permisos para acceder, solo un usuario ADMIN puede acceder.
+    </div>';
 
-$productosList = $productoService->findAll();
+}
+if (isset($_GET['buscar']) && $_GET != ""){
+    $productoabuscar = $_GET['buscar'];
+    $productosList = $productoService->findAllWithCategoryName($productoabuscar);
+    if ($_GET['buscar'] == ""){
+        $productosList= $productoService->findAll();
+
+    }
+
+}else{
+    $productosList= $productoService->findAll();
+}
+
 
 ?>
 
 <div class="container mt-5">
     <h1 class="text-center mb-4">Listado de Productos</h1>
-    <div class="d-flex justify-content-center mb-4">
-        <div class="input-group" style="max-width: 500px;">
-            <input 
-                type="text" 
-                class="form-control form-control-lg rounded-start-pill" 
-                placeholder="🔍 Introduce nombre o marca..."
-                aria-label="Buscar producto"
-            >
-            <button 
-                class="btn btn-primary rounded-end-pill px-4" 
-                type="button"
-            >
-                Buscar
-            </button>
-        </div>
+    
+    <div class="container mb-4">
+    <form class="d-flex justify-content-center" method="get" action="">
+        <input class="form-control me-2 w-50" type="text" name="buscar" placeholder="Buscar por categoría o modelo" value="<?php echo isset($_GET['buscar']) ? ($_GET['buscar']) : ''; ?>">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
     </div>
+
     <table class="table table-dark table-striped table-hover align-middle text-center">
         <thead class="table-secondary text-dark">
             <tr>
                 <th>ID</th>
                 <th>Marca</th>
                 <th>Modelo</th>
+                <th>Categoria</th>
                 <th>Precio (€)</th>
                 <th>Stock</th>
                 <th style="width: 100px;">Imagen</th>
@@ -55,13 +71,19 @@ $productosList = $productoService->findAll();
         </thead>
         <tbody>
             <?php 
-            
+        if($productosList == null ){
+        echo '<div class="alert alert-success text-center" role="alert">
+                        Producto no encontrado.
+                        </div>';
+                    }else{
             foreach($productosList as $producto){
+                $idCategoria = $categoriaService->findById($producto->categoriaId);
                 echo '<tr>
                         <td>' . htmlspecialchars($producto->id) . '</td>
                         <td>' . htmlspecialchars($producto->marca) . '</td>
                         <td>' . htmlspecialchars($producto->modelo) . '</td>
-                        <td>' . htmlspecialchars($producto->precio) . '</td>
+                        <td>' . htmlspecialchars($idCategoria->nombre) . '</td>
+                        <td>' . htmlspecialchars($producto->precio) . '€</td>
                         <td>' . htmlspecialchars($producto->stock) . '</td>
                         <td class="text-center align-middle">' . '<img src='.$producto->imagen.' class="img-fluid" style="max-width: 200px; max-height: 200px;" alt='.$producto->descripcion.'>' . '</td>
                         <td class="text-center">
@@ -81,7 +103,7 @@ $productosList = $productoService->findAll();
                             </div>
                         </td>
                       </tr>';
-            }
+            }}
             ?>
         </tbody>
     </table>

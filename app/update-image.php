@@ -14,63 +14,69 @@ $categoriaService = new CategoriasService($config->db);
 $productoService = new ProductosService($config->db);
 include __DIR__ . '\..\app\header.php';
 
-if (isset($_GET['id'])) {
+if(!isset($_COOKIE['rol']) || $_COOKIE['rol'] != 'ADMIN'){
+    header('location:../public/index.php?rol=0');
 
-    $id = $_GET['id'];
-    $producto = $productoService->findById($id);
+    }else{
 
-    if ($producto !== null) {
+        if (isset($_GET['id'])) {
 
-        $idCategoria = $categoriaService->findById($producto->categoriaId);
+            $id = $_GET['id'];
+            $producto = $productoService->findById($id);
 
-        echo '<h1 class="mb-4">Detalles del producto</h1>
-        <table class="table table-striped">
-            <tr>
-                <td>ID:</td>
-                <td>' . $producto->id . '</td>
-            </tr>
-            <tr>
-                <td>Marca:</td>
-                <td>' . $producto->marca . '</td>
-            </tr>
-            <tr>
-                <td>Modelo:</td>
-                <td>' . $producto->modelo . '</td>
-            </tr>
-            <tr>
-                <td>Descripción:</td>
-                <td>' . $producto->descripcion . '</td>
-            </tr>
-            <tr>
-                <td>Precio:</td>
-                <td>' . $producto->precio . '</td>
-            </tr>
-            <tr>
-                <td>Imagen:</td>
-                <td><img src="' . $producto->imagen . '"class = "img-fluid" alt="' . $producto->descripcion . '"></td>
-            </tr>
-            <tr>
-                <td>Stock:</td>
-                <td>' . $producto->stock . '</td>
-            </tr>
-            <tr>
-                <td>Categoría:</td>
-                <td>' . $idCategoria->nombre . '</td>
-            </tr>
-        </table>
-        
-        </div>';
+            if ($producto !== null) {
 
-    } else {
-              
-        echo '<div class="alert alert-danger text-center">Producto no encontrado.</div>';        
-        header('location:../public/index.php');
-        
-        
+                $idCategoria = $categoriaService->findById($producto->categoriaId);
 
-    }
+                echo '<h1 class="mb-4">Detalles del producto</h1>
+                <table class="table table-striped">
+                    <tr>
+                        <td>ID:</td>
+                        <td>' . $producto->id . '</td>
+                    </tr>
+                    <tr>
+                        <td>Marca:</td>
+                        <td>' . $producto->marca . '</td>
+                    </tr>
+                    <tr>
+                        <td>Modelo:</td>
+                        <td>' . $producto->modelo . '</td>
+                    </tr>
+                    <tr>
+                        <td>Descripción:</td>
+                        <td>' . $producto->descripcion . '</td>
+                    </tr>
+                    <tr>
+                        <td>Precio:</td>
+                        <td>' . $producto->precio . '</td>
+                    </tr>
+                    <tr>
+                        <td>Imagen:</td>
+                        <td><img src="' . $producto->imagen . '"class = "img-fluid" alt="' . $producto->descripcion . '"></td>
+                    </tr>
+                    <tr>
+                        <td>Stock:</td>
+                        <td>' . $producto->stock . '</td>
+                    </tr>
+                    <tr>
+                        <td>Categoría:</td>
+                        <td>' . $idCategoria->nombre . '</td>
+                    </tr>
+                </table>
+                
+                </div>';
 
-} 
+            } else {
+                    
+                echo '<div class="alert alert-danger text-center">Producto no encontrado.</div>';        
+                header('location:../public/index.php');
+                
+                
+
+            }
+        }
+
+    } 
 ?>
 <form action="../app/update_image_file.php" method="post" enctype="multipart/form-data" 
       class="p-4 border rounded shadow-sm bg-light" style="max-width: 450px;">

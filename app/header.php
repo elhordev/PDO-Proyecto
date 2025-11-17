@@ -36,6 +36,7 @@ if(isset($_COOKIE['rol'])){
 
 <!-- BOOTSTRAP -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../src/favicon/mantenimiento.png" rel="icon" type="image/png">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
@@ -53,7 +54,7 @@ if(isset($_COOKIE['rol'])){
 <div class="collapse navbar-collapse" id="navbarNav">
 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 <li class="nav-item">
-<a class="nav-link" href="/PDO-Proyecto/public">Productos</a>
+<a class="nav-link" href="/PDO-Proyecto/public">Todos los productos</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" href="../app/create.php">Crear producto</a>
