@@ -14,6 +14,11 @@ $config = Config::getInstance();
 $userService = new UsersService($config->db);
 $sessionService = SessionService::getInstance();
 
+if (isset($_GET['usernull']) && $_GET['usernull'] == 1){
+    echo '<div class="alert alert-danger text-center" role="alert">
+    Usuario no encontrado
+    </div>';
+}
 
 if (isset($_POST['user']) && isset($_POST['pass'])){
     
@@ -21,7 +26,10 @@ if (isset($_POST['user']) && isset($_POST['pass'])){
     $userPassword = $_POST['pass'];
 
     $user = $userService->authenticate($userName, $userPassword);
-    //todo se acuerda juan
+    if($user == null){
+        header('location:../app/login.php?usernull=1');
+        exit;
+    }
     $sessionService->login($user);
     header('location:../public/index.php');
 

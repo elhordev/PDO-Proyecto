@@ -28,8 +28,7 @@ class UsersService{
 
             if(password_verify($password, $passBDD)){
                 return $user;}
-            else{
-                return null;}
+            
 
         }catch (PDOException $err) {
             echo "Error: " . $err;

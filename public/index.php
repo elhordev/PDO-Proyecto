@@ -90,13 +90,13 @@ if (isset($_GET['buscar']) && $_GET != ""){
                             <div class="btn-group" role="group" aria-label="Acciones">
                                 <form action="../app/update.php" method="get">    
                                     <input name="id" value="'.$producto->id.'" style="display:none"/>
-                                    <input type="submit" value="Editar"class="btn btn-outline-warning btn-sm"></form>
+                                    <input type="submit" value="Editar"class="btn btn-outline-warning btn-sm me-2"></form>
                                 <form action="../app/details.php" method="get">    
                                     <input name="id" value="'.$producto->id.'" style="display:none"/>
-                                    <input type="submit" value="Detalles"class="btn btn-outline-info btn-sm"></form>
+                                    <input type="submit" value="Detalles"class="btn btn-outline-info btn-sm me-2"></form>
                                 <form action="../app/update-image.php" method="get">    
                                     <input name="id" value="'.$producto->id.'" style="display:none"/>
-                                    <input type="submit" value="Imagen"class="btn btn-outline-success btn-sm"></form>
+                                    <input type="submit" value="Imagen"class="btn btn-outline-success btn-sm me-2 "></form>
                                 <form action="../app/delete.php" method="get">    
                                     <input name="id" value="'.$producto->id.'" style="display:none"/>
                                     <input type="submit" value="Eliminar"class="btn btn-outline-danger btn-sm"></form>

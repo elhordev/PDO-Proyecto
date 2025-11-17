@@ -70,7 +70,7 @@ if(isset($_COOKIE['rol'])){
 
 
 <form action="<?php echo $url_button;?>" method="post" class="m-0">
-    <?php echo $rol . " - ";?>
+    <?php echo ($rol == "ADMIN") ? '<span class="badge bg-danger me-2">' . $rol  . '</span>': '';?>
 <button type="submit" name="logout" class="btn btn-light btn-sm"><?php echo $nousertext;?></button>
 </form>
 </div>
