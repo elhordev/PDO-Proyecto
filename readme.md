@@ -3,6 +3,14 @@
 ## Descripción
 Este proyecto es un sistema web desarrollado en PHP utilizando PDO para la gestión de bases de datos. Permite la gestión de información mediante un backend conectado a una base de datos MySQL y cuenta con un front-end básico en la carpeta `public`. Es un proyecto educativo que sirve para aprender y practicar buenas prácticas en PHP y acceso a bases de datos.
 
+Su función principal es permitir a un administrador gestionar el catálogo de productos de forma sencilla desde una interfaz web.
+
+- Gestión de productos: crear productos, ver productos en detalle, editarlos, eliminarlos y actualizar sus imágenes.
+
+- Crear productos: nombre, descripción, precio, stock, imagen, marca, modelo, categoría…
+
+- Sistema de autenticación de sesión con control de roles y con expiración automática de sesiones.
+
 ## Estructura del proyecto
 - `app/` : Contiene los servicios y modelos del proyecto (lógica del backend).  
 - `database/` : Scripts para crear y gestionar la base de datos.  
